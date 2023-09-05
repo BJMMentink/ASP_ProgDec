@@ -8,7 +8,7 @@ namespace BJM.ProgDec.BL.Models
 {
     public class Declaration
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public DateTime ChangeDate { get; set; }
         public int ProgramId { get; set; }
         public int StudentId { get; set; }
