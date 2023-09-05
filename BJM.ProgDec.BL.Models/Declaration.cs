@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace BJM.ProgDec.BL.Models
 {
-    internal class Declaration
+    public class Declaration
     {
+        public int ID { get; set; }
+        public DateTime ChangeDate { get; set; }
+        public int ProgramId { get; set; }
+        public int StudentId { get; set; }
     }
 }

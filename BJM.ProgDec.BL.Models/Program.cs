@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace BJM.ProgDec.BL.Models
 {
-    internal class Program
+    public class Program
     {
+        public int ID { get; set; }
+        public string Description { get; set; } = string.Empty;
+        public int DegreeTypeId { get; set; }
     }
 }
