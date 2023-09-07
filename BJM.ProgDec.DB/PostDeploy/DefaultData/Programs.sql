@@ -1,6 +1,6 @@
 ﻿Begin
 
-INSERT INTO [dbo].tblProgram (Id, Name, DegreeTypeId)
+INSERT INTO [dbo].tblProgram (Id, Description, DegreeTypeId)
 VALUES
 	(1, 'Computer Support Specialist', 1),
 	(2, 'Network Specialist', 1),
