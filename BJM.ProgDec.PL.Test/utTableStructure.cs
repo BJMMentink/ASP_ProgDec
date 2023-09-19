@@ -1,10 +1,9 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 
 namespace BJM.ProgDec.PL.Test
 {
@@ -20,9 +19,75 @@ namespace BJM.ProgDec.PL.Test
     [TestClass]
     public class utTableStructure
     {
+        const string connstrlocal = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=BJM.ProgDec.DB;Integrated Security=True";
+
+
+        public int GetRowCount<T>(DbContext context)
+        {
+            // Get the generic type definition
+            var method = typeof(DbContext).GetMethod(
+                nameof(DbContext.Set), BindingFlags.Public | BindingFlags.Instance);
+
+            // Build a method with the specific type argument you're interested in
+            method = method.MakeGenericMethod(typeof(T));
+
+            var iEnumerable = method.Invoke(context, null) as IQueryable<T>;
+
+            return (iEnumerable ?? throw new InvalidOperationException()).Count();
+        }
+
+        private bool CheckCounts(Type tableType,
+                                 ref string message,
+                                 ref string errmessage)
+        {
+            try
+            {
+
+                SqlConnection connection;
+                SqlCommand command;
+
+                connection = new SqlConnection();
+                connection.ConnectionString = connstrlocal;
+                connection.Open();
+
+                string ssql = "SELECT COUNT(*) FROM " + tableType.Name;
+                command = new SqlCommand(ssql, connection);
+
+                SqlDataReader reader = command.ExecuteReader();
+                reader.Read();
+                int rows = reader.GetInt32(0);
+                reader.Close();
+
+                if (rows > 0)
+                {
+                    message += "Passed: " + tableType.Name + ". Rows: " + rows + "\r\n";
+                    return true;
+                }
+                else
+                {
+                    errmessage += "Failed: Missing Rows: "
+                                   + tableType.Name
+                                   + ")\r\n";
+                    message += "Failed: Missing Rows: "
+                                   + tableType.Name
+                                   + ")\r\n";
+                    return false;
+                }
+
+
+            }
+            catch (System.Exception ex)
+            {
+                errmessage += "Failed: Get Count for " + tableType.Name + "\r\n";
+                message += "Failed: Get Count for " + tableType.Name + "\r\n";
+                return false;
+            }
+        }
+
+
 
         private bool CheckColumnDefinition(Type tableType,
-                                          string columnName,
+        string columnName,
                                           DataTypes dataType,
                                           ref string message,
                                           ref string errmessage)
@@ -121,9 +186,7 @@ namespace BJM.ProgDec.PL.Test
 
                 string tableTypeName = structure1.Type.Replace("BDF", namespaceNames[0]).Split(",")[0];
 
-                //Type tableType = Type.GetType(tableTypeName + ", " + namespaceName + "2");
                 Type tableType = Type.GetType(tableTypeName + ", " + namespaceName);
-
 
                 foreach (ColumnInfo column in structure1.ColumnInfos)
                 {
@@ -134,6 +197,8 @@ namespace BJM.ProgDec.PL.Test
                                                     ref message,
                                                     ref errMessage) ? results : false;
                 }
+                CheckCounts(tableType, ref message, ref errMessage);
+                message += "-----------------------------------\n";
             }
 
 

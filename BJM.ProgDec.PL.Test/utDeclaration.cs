@@ -64,5 +64,11 @@ namespace BJM.ProgDec.PL.Test
             int result = dc.SaveChanges();
             Assert.AreNotEqual(result, 0);
         }
+        [TestMethod]
+        public void LoadByIdTest()
+        {
+            tblDeclaration entity = dc.tblDeclarations.Where(e => e.Id == 4).FirstOrDefault();
+            Assert.AreEqual(entity.Id, 4);
+        }
     }
 }

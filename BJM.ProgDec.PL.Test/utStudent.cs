@@ -56,5 +56,11 @@
             int result = dc.SaveChanges();
             Assert.AreNotEqual(result, 0);
         }
+        [TestMethod]
+        public void LoadByIdTest()
+        {
+            tblStudent entity = dc.tblStudents.Where(e => e.Id == 4).FirstOrDefault();
+            Assert.AreEqual(entity.Id, 4);
+        }
     }
 }
