@@ -1,5 +1,6 @@
 ﻿using BJM.ProgDec.BL.Models;
 using BJM.ProgDec.PL;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,18 +12,58 @@ namespace BJM.ProgDec.BL
 {
     public static class StudenManager
     {
-        public static int Insert()
+        // by refrence is used by calling "ref" or "out"
+        public static int Insert(string firstName, string lastName, string studentId, ref int id, bool roleback = false)
         {
             try
             {
-
+                Student student = new Student
+                {
+                    FirstName = firstName,
+                    LastName = lastName,
+                    StudentId = studentId
+                };
+                int results = Insert(student, roleback);
+                id = student.Id;
+                return results;
             }
             catch (Exception)
             {
 
                 throw;
             }
-            return 0;
+            
+        }
+        public static int Insert(Student student, bool roleback = false)
+        {
+            try
+            {
+                int results = 0;
+                using(ProgDecEntities dc = new ProgDecEntities())
+                {
+                    IDbContextTransaction transaction = null;
+                    if (roleback) transaction = dc.Database.BeginTransaction();
+                    tblStudent entity = new tblStudent();
+                    // if ? option 1 : option 2
+                    entity.Id = dc.tblStudents.Any() ? dc.tblStudents.Max(s => s.Id) + 1 : 1;
+                    entity.FirstName = student.FirstName;
+                    entity.LastName = student.LastName;
+                    entity.StudentId = student.StudentId;
+
+                    // IMPORTANT - Back Fill ID
+                    student.Id = entity.Id;
+
+                    dc.tblStudents.Add(entity);
+                    results = dc.SaveChanges();
+                    if (roleback) transaction.Rollback();
+                }
+                return results;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
         public static int Update() 
         {
