@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BJM.ProgDec.BL.Models\BJM.ProgDec.BL.Models.csproj" />
+    <ProjectReference Include="..\BJM.ProgDec.PL\BJM.ProgDec.PL.csproj" />
+  </ItemGroup>
+
+</Project>
