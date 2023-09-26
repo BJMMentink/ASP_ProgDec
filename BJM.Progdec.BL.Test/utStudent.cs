@@ -1,3 +1,6 @@
+using BJM.ProgDec.BL;
+using BJM.ProgDec.BL.Models;
+
 namespace BJM.Progdec.BL.Test
 {
     [TestClass]
@@ -6,13 +9,13 @@ namespace BJM.Progdec.BL.Test
         [TestMethod]
         public void LoadTest()
         {
-            Assert.AreEqual(5, StudenManager.Load().Count);
+            Assert.AreEqual(5, StudentManager.Load().Count);
         }
         [TestMethod]
         public void InsertTest1()
         {
             int id = 0;
-            int result = StudenManager.Insert("Bale", "Organa", "456789123", ref id, true);
+            int result = StudentManager.Insert("Bale", "Organa", "456789123", ref id, true);
             Assert.AreEqual(1, result);
         }
         [TestMethod]
@@ -25,21 +28,21 @@ namespace BJM.Progdec.BL.Test
                 LastName = "test",
                 StudentId = "test"
             };
-            int result = StudenManager.Insert(student, true);
+            int result = StudentManager.Insert(student, true);
             Assert.AreEqual(1, result);
         }
         [TestMethod]
         public void UpdateTest()
         {
-            Student student = StudenManager.LoadById(3);
+            Student student = StudentManager.LoadById(3);
             student.FirstName = "test";
-            int result = StudenManager.Update(student, true);
+            int result = StudentManager.Update(student, true);
             Assert.AreEqual(1, result);
         }
         [TestMethod]
         public void DeleteTest()
         {
-            int result = StudenManager.Delete(3, true);
+            int result = StudentManager.Delete(3, true);
             Assert.AreEqual(1, result);
         }
     }

@@ -1,60 +1,142 @@
 ﻿using BJM.ProgDec.BL.Models;
 using BJM.ProgDec.PL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Storage;
+
 
 namespace BJM.ProgDec.BL
 {
-    public class ProgramManager
+    public static class ProgramManager
     {
-        public static int Insert()
+        // by refrence is used by calling "ref" or "out"
+        public static int Insert(string description, int degreeTypeId, ref int id, bool roleback = false)
         {
             try
             {
-
+                Program program = new Program
+                {
+                    Description = description,
+                    DegreeTypeId = degreeTypeId
+                };
+                int results = Insert(program, roleback);
+                id = program.Id;
+                return results;
             }
             catch (Exception)
             {
 
                 throw;
             }
-            return 0;
+
         }
-        public static int Update()
+        public static int Insert(Program program, bool rollback = false)
         {
             try
             {
+                int results = 0;
+                using (ProgDecEntities dc = new ProgDecEntities())
+                {
+                    IDbContextTransaction transaction = null;
+                    if (rollback) transaction = dc.Database.BeginTransaction();
+                    tblProgram entity = new tblProgram();
+                    // if ? option 1 : option 2
+                    entity.Id = dc.tblPrograms.Any() ? dc.tblPrograms.Max(s => s.Id) + 1 : 1;
+                    entity.Description = program.Description;
+                    entity.DegreeTypeId = program.DegreeTypeId;
 
+                    // IMPORTANT - Back Fill ID
+                    program.Id = entity.Id;
+
+                    dc.tblPrograms.Add(entity);
+                    results = dc.SaveChanges();
+                    if (rollback) transaction.Rollback();
+                }
+                return results;
             }
             catch (Exception)
             {
 
                 throw;
             }
-
-            return 0;
         }
-        public static int Delete()
+        public static int Update(Program program, bool rollback = false)
         {
             try
             {
+                int results = 0;
+                using (ProgDecEntities dc = new ProgDecEntities())
+                {
+                    IDbContextTransaction transaction = null;
+                    if (rollback) transaction = dc.Database.BeginTransaction();
+                    // get the row we are trying to update
+                    tblProgram entity = dc.tblPrograms.FirstOrDefault(s => s.Id == program.Id);
+                    if (entity != null)
+                    {
+                        entity.Description = program.Description;
+                        entity.DegreeTypeId = program.DegreeTypeId;
+                        results = dc.SaveChanges();
+                    }
+                    if (rollback) transaction.Rollback();
+                    else throw new Exception("Row does not exist");
 
+                }
+                return results;
             }
             catch (Exception)
             {
 
                 throw;
             }
-            return 0;
+
+        }
+        public static int Delete(int id, bool rollback = false)
+        {
+            try
+            {
+                int results = 0;
+                using (ProgDecEntities dc = new ProgDecEntities())
+                {
+                    IDbContextTransaction transaction = null;
+                    if (rollback) transaction = dc.Database.BeginTransaction();
+                    // get the row we are trying to update
+                    tblProgram entity = dc.tblPrograms.FirstOrDefault(s => s.Id == id);
+                    if (entity != null)
+                    {
+                        dc.tblPrograms.Remove(entity);
+                        results = dc.SaveChanges();
+                    }
+                    if (rollback) transaction.Rollback();
+                    else throw new Exception("Row does not exist");
+
+                }
+                return results;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
         public static Program LoadById(int id)
         {
             try
             {
-                return null;
+                using (ProgDecEntities dc = new ProgDecEntities())
+                {
+                    tblProgram entity = dc.tblPrograms.FirstOrDefault(s => s.Id == id);
+                    if (entity != null)
+                    {
+                        return new Program
+                        {
+                            Id = entity.Id,
+                            Description = entity.Description,
+                            DegreeTypeId = entity.DegreeTypeId
+                        };
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
+                }
             }
             catch (Exception)
             {
@@ -70,12 +152,12 @@ namespace BJM.ProgDec.BL
 
                 using (ProgDecEntities dc = new ProgDecEntities())
                 {
-                    (from p in dc.tblPrograms
+                    (from s in dc.tblPrograms
                      select new
                      {
-                         p.Id,
-                         p.Description,
-                         p.DegreeTypeId
+                         s.Id,
+                         s.Description,
+                         s.DegreeTypeId
                      })
                      .ToList()
                      .ForEach(program => list.Add(new Program

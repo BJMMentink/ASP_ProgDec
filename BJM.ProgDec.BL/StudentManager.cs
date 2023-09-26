@@ -1,16 +1,11 @@
 ﻿using BJM.ProgDec.BL.Models;
 using BJM.ProgDec.PL;
 using Microsoft.EntityFrameworkCore.Storage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace BJM.ProgDec.BL
 {
-    public static class StudenManager
+    public static class StudentManager
     {
         // by refrence is used by calling "ref" or "out"
         public static int Insert(string firstName, string lastName, string studentId, ref int id, bool roleback = false)
