@@ -34,7 +34,7 @@ namespace BJM.ProgDec.BL
             }
             
         }
-        public static int Insert(Student student, bool roleback = false)
+        public static int Insert(Student student, bool rollback = false)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace BJM.ProgDec.BL
                 using(ProgDecEntities dc = new ProgDecEntities())
                 {
                     IDbContextTransaction transaction = null;
-                    if (roleback) transaction = dc.Database.BeginTransaction();
+                    if (rollback) transaction = dc.Database.BeginTransaction();
                     tblStudent entity = new tblStudent();
                     // if ? option 1 : option 2
                     entity.Id = dc.tblStudents.Any() ? dc.tblStudents.Max(s => s.Id) + 1 : 1;
@@ -55,7 +55,7 @@ namespace BJM.ProgDec.BL
 
                     dc.tblStudents.Add(entity);
                     results = dc.SaveChanges();
-                    if (roleback) transaction.Rollback();
+                    if (rollback) transaction.Rollback();
                 }
                 return results;
             }
@@ -65,11 +65,29 @@ namespace BJM.ProgDec.BL
                 throw;
             }
         }
-        public static int Update() 
+        public static int Update(Student student, bool rollback = false) 
         {
             try
             {
-
+                int results = 0;
+                using (ProgDecEntities dc = new ProgDecEntities())
+                {
+                    IDbContextTransaction transaction = null;
+                    if(rollback) transaction = dc.Database.BeginTransaction();
+                    // get the row we are trying to update
+                    tblStudent entity = dc.tblStudents.FirstOrDefault(s => s.Id == student.Id);
+                    if (entity != null)
+                    {
+                        entity.FirstName = student.FirstName;
+                        entity.LastName = student.LastName;
+                        entity.StudentId = student.StudentId;
+                        results = dc.SaveChanges();
+                    }
+                    if (rollback) transaction.Rollback();
+                    else throw new Exception("Row does not exist");
+                    
+                }
+                return results;
             }
             catch (Exception)
             {
@@ -77,26 +95,57 @@ namespace BJM.ProgDec.BL
                 throw;
             }
          
-            return 0;
         }
-        public static int Delete()
+        public static int Delete(int id, bool rollback = false)
         {
             try
             {
+                int results = 0;
+                using (ProgDecEntities dc = new ProgDecEntities())
+                {
+                    IDbContextTransaction transaction = null;
+                    if (rollback) transaction = dc.Database.BeginTransaction();
+                    // get the row we are trying to update
+                    tblStudent entity = dc.tblStudents.FirstOrDefault(s => s.Id == id);
+                    if (entity != null)
+                    {
+                        dc.tblStudents.Remove(entity);
+                        results = dc.SaveChanges();
+                    }
+                    if (rollback) transaction.Rollback();
+                    else throw new Exception("Row does not exist");
 
+                }
+                return results;
             }
             catch (Exception)
             {
 
                 throw;
             }
-            return 0;
         }
         public static Student LoadById(int id)
         {
             try
             {
-                return null;
+                using (ProgDecEntities dc = new ProgDecEntities())
+                {
+                    tblStudent entity = dc.tblStudents.FirstOrDefault(s => s.Id == id);
+                    if(entity != null)
+                    {
+                        return new Student
+                        {
+                            Id = entity.Id,
+                            FirstName = entity.FirstName,
+                            LastName = entity.LastName,
+                            StudentId = entity.StudentId
+                        };
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
+                }
             }
             catch (Exception)
             {

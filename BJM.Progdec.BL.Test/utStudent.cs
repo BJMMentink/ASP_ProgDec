@@ -28,5 +28,19 @@ namespace BJM.Progdec.BL.Test
             int result = StudenManager.Insert(student, true);
             Assert.AreEqual(1, result);
         }
+        [TestMethod]
+        public void UpdateTest()
+        {
+            Student student = StudenManager.LoadById(3);
+            student.FirstName = "test";
+            int result = StudenManager.Update(student, true);
+            Assert.AreEqual(1, result);
+        }
+        [TestMethod]
+        public void DeleteTest()
+        {
+            int result = StudenManager.Delete(3, true);
+            Assert.AreEqual(1, result);
+        }
     }
 }
