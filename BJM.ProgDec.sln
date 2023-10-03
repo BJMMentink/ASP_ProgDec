@@ -16,9 +16,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BJM.ProgDec.PL.Test", "BJM.ProgDec.PL.Test\BJM.ProgDec.PL.Test.csproj", "{CAD3B401-F066-4ADB-8A36-33485BAC1AB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BJM.ProgDec.BL", "BJM.ProgDec.BL\BJM.ProgDec.BL.csproj", "{47958ADC-CF87-4F43-9EB5-68BD98CFB8E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BJM.ProgDec.BL", "BJM.ProgDec.BL\BJM.ProgDec.BL.csproj", "{47958ADC-CF87-4F43-9EB5-68BD98CFB8E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BJM.Progdec.BL.Test", "BJM.Progdec.BL.Test\BJM.Progdec.BL.Test.csproj", "{3C205910-1371-4E89-BD7C-C17BF33D9252}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BJM.Progdec.BL.Test", "BJM.Progdec.BL.Test\BJM.Progdec.BL.Test.csproj", "{3C205910-1371-4E89-BD7C-C17BF33D9252}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BJM.Bands.UI", "BJM.Bands.UI\BJM.Bands.UI.csproj", "{1A0AAA4A-7663-4E1D-992A-EF0A82EC1FDF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,6 +54,10 @@ Global
 		{3C205910-1371-4E89-BD7C-C17BF33D9252}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C205910-1371-4E89-BD7C-C17BF33D9252}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C205910-1371-4E89-BD7C-C17BF33D9252}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A0AAA4A-7663-4E1D-992A-EF0A82EC1FDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A0AAA4A-7663-4E1D-992A-EF0A82EC1FDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A0AAA4A-7663-4E1D-992A-EF0A82EC1FDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A0AAA4A-7663-4E1D-992A-EF0A82EC1FDF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
