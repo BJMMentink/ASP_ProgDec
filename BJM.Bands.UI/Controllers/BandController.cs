@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using BJM.Bands.UI.Models;
+using BJM.Bands.UI.Extentions;
+using NuGet.Versioning;
+using System.Xml.Linq;
 
 namespace BJM.Bands.UI.Controllers
 {
@@ -16,17 +19,33 @@ namespace BJM.Bands.UI.Controllers
                 new Band{Id = 3, Name = "Killstation", Genre = "Emo Rap", DateFounded = new DateTime(1997, 7, 22)}
             };
         }
+        private void GetBands()
+        {
+            if(HttpContext.Session.GetObject<Band[]>("bands") != null)
+            {
+                bands = HttpContext.Session.GetObject<Band[]>("bands");
+            }
+            else
+            {
+                LoadBands();
+            }
+        }
+        private void SetBands()
+        {
+            HttpContext.Session.SetObject("bands", bands);
+        }
+
         // GET: Band
         public ActionResult Index()
         {
-            LoadBands();
+            GetBands();
             return View(bands);
         }
 
         // GET: Band/Details/5
         public ActionResult Details(int id)
         {
-            LoadBands();
+            GetBands();
             Band band = bands.FirstOrDefault(b => b.Id == id);
             return View(band);
         }
@@ -34,16 +53,24 @@ namespace BJM.Bands.UI.Controllers
         // GET: Band/Create
         public ActionResult Create()
         {
-            return View();
+            Band band = new Band();
+            return View(band);
         }
 
         // POST: Band/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Band band)
         {
             try
             {
+                GetBands();
+                // "resize" the array
+                Array.Resize(ref bands, bands.Length + 1);
+                // Calculate the New Id Value 
+                band.Id = bands.Length;
+                bands[bands.Length - 1] = band;
+                SetBands();
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -55,16 +82,21 @@ namespace BJM.Bands.UI.Controllers
         // GET: Band/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            GetBands();
+            Band band = bands.FirstOrDefault(b => b.Id == id);
+            return View(band);
         }
 
         // POST: Band/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, Band band)
         {
             try
             {
+                GetBands();
+                bands[id - 1] = band;
+                SetBands();
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -76,7 +108,9 @@ namespace BJM.Bands.UI.Controllers
         // GET: Band/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            GetBands();
+            Band band = bands.FirstOrDefault(b => b.Id == id);
+            return View(band);
         }
 
         // POST: Band/Delete/5
@@ -86,6 +120,10 @@ namespace BJM.Bands.UI.Controllers
         {
             try
             {
+                GetBands();
+                var newBands = bands.Where(b => b.Id != id);
+                bands = newBands.ToArray();
+                SetBands();
                 return RedirectToAction(nameof(Index));
             }
             catch
