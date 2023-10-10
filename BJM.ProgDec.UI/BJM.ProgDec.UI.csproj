@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BJM.ProgDec.BL.Models\BJM.ProgDec.BL.Models.csproj" />
+    <ProjectReference Include="..\BJM.ProgDec.BL\BJM.ProgDec.BL.csproj" />
+  </ItemGroup>
+
+</Project>
