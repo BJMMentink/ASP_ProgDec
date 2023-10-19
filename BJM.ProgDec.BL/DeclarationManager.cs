@@ -125,7 +125,7 @@ namespace BJM.ProgDec.BL
                 throw;
             }
         }
-        public static List<Declaration> Load()
+        public static List<Declaration> Load(int? programId = null)
         {
             try
             {
@@ -140,12 +140,13 @@ namespace BJM.ProgDec.BL
                      d.ProgramId equals p.Id
                      join dt in dc.tblDegreeTypes on
                      p.DegreeTypeId equals dt.Id
+                     where d.ProgramId == programId || programId == null
                      select new
                      {
                          d.Id,
                          StudentName = s.FirstName + " " + s.LastName,
                          ProgramName = p.Description,
-                         DegreeTypeName = p.Description,
+                         DegreeTypeName = dt.Description,
                          d.StudentId,
                          d.ProgramId,
                          d.ChangeDate,

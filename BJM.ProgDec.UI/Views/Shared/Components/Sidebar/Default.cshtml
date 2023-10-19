@@ -1,0 +1,7 @@
+﻿@model IEnumerable<BJM.ProgDec.BL.Models.Program>
+<ul>
+    @foreach(var programs in Model)
+    {
+        <li><a asp-controller="Declaration" asp-action="Browse">@programs.Description</a></li>
+    }
+</ul>
