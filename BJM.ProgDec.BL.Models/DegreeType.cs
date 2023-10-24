@@ -10,5 +10,6 @@ namespace BJM.ProgDec.BL.Models
     {
         public int Id { get; set; }
         public string Description { get; set; } = string.Empty;
+        public List<Program> Programs { get; set; } = new List<Program>();
     }
 }

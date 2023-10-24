@@ -9,7 +9,16 @@ namespace BJM.Progdec.BL.Test
         [TestMethod]
         public void LoadTest()
         {
-            Assert.AreEqual(4, DeclarationManager.Load().Count);
+            List<DegreeType> items = DegreeTypeManager.Load();
+            Assert.AreEqual(4, items.Count);
+            Assert.AreEqual(9, items[2].Programs.Count());
+        }
+        [TestMethod]
+        public void LoadById()
+        {
+            var item = DegreeTypeManager.LoadById(1);
+            Assert.AreEqual(1, item.Id);
+            Assert.AreEqual(5, item.Programs.Count());
         }
         [TestMethod]
         public void InsertTest()
