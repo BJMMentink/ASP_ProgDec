@@ -1,7 +1,7 @@
 ﻿using BJM.ProgDec.BL.Models;
 using BJM.ProgDec.PL;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
-
 
 namespace BJM.ProgDec.BL
 {
@@ -130,6 +130,7 @@ namespace BJM.ProgDec.BL
                             Id = entity.Id,
                             Description = entity.Description,
                             DegreeTypeId = entity.DegreeTypeId
+                            
                         };
                     }
                     else
@@ -153,18 +154,21 @@ namespace BJM.ProgDec.BL
                 using (ProgDecEntities dc = new ProgDecEntities())
                 {
                     (from s in dc.tblPrograms
+                     join dt in dc.tblDegreeTypes on s.DegreeTypeId equals dt.Id
                      select new
                      {
                          s.Id,
                          s.Description,
-                         s.DegreeTypeId
+                         s.DegreeTypeId,
+                         DegreeTypeName = dt.Description
                      })
                      .ToList()
                      .ForEach(program => list.Add(new Program
                      {
                          Id = program.Id,
                          Description = program.Description,
-                         DegreeTypeId = program.DegreeTypeId
+                         DegreeTypeId = program.DegreeTypeId,
+                         DegreeTypeName = program.DegreeTypeName
                      }));
                 }
                 return list;

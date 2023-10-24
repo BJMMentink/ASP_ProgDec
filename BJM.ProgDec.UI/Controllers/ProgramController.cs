@@ -6,14 +6,18 @@ namespace BJM.ProgDec.UI.Controllers
     {
         public IActionResult Index()
         {
+            ViewBag.Title = "List of all programs";
             return View(ProgramManager.Load());
         }
         public IActionResult Details(int id)
         {
+            var item = ProgramManager.LoadById(id);
+            ViewBag.Title = "Details for " + item.Description;
             return View(ProgramManager.LoadById(id));
         }
         public IActionResult Create()
         {
+            ViewBag.Title = "Create a Program";
             return View();
         }
         [HttpPost]
@@ -32,6 +36,8 @@ namespace BJM.ProgDec.UI.Controllers
         }
         public IActionResult Edit(int id) 
         {
+            var item = ProgramManager.LoadById(id);
+            ViewBag.Title = "Edit " + item.Description;
             return View(ProgramManager.LoadById(id));
         }
         [HttpPost]
@@ -50,6 +56,8 @@ namespace BJM.ProgDec.UI.Controllers
         }
         public IActionResult Delete(int id)
         {
+            var item = ProgramManager.LoadById(id);
+            ViewBag.Title = "Delete " + item.Description;
             return View(ProgramManager.LoadById(id));
         }
         [HttpPost]

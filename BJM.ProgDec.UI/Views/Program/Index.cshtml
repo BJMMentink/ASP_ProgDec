@@ -1,25 +1,16 @@
 ﻿@model IEnumerable<BJM.ProgDec.BL.Models.Program>
 
-@{
-    ViewData["Title"] = "Index";
-}
-
-<h1>Index</h1>
-
-<p>
+<p class="m-2">
     <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DegreeTypeId)
+                @Html.DisplayNameFor(model => model.DegreeTypeName)
             </th>
             <th></th>
         </tr>
@@ -28,13 +19,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DegreeTypeId)
+                @Html.DisplayFor(modelItem => item.DegreeTypeName)
             </td>
             <td>
                     @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

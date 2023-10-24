@@ -2,6 +2,7 @@
 <ul>
     @foreach(var programs in Model)
     {
-        <li><a asp-controller="Declaration" asp-action="Browse">@programs.Description</a></li>
+        <li><a asp-controller="Declaration" asp-action="Browse"
+        asp-route-id ="@programs.Id" >@programs.Description</a></li>
     }
 </ul>

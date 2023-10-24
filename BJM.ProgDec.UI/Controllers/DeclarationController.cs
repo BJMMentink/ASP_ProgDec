@@ -8,6 +8,11 @@ namespace BJM.ProgDec.UI.Controllers
         {
             return View(DeclarationManager.Load());
         }
+        //filter Declaration by Program ID
+        public IActionResult Browse(int id)
+        {
+            return View(nameof(Index), DeclarationManager.Load(id));
+        }
         public IActionResult Details(int id)
         {
             return View(DeclarationManager.LoadById(id));
