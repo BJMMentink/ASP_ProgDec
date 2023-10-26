@@ -126,6 +126,7 @@ namespace BJM.ProgDec.BL
                 using (ProgDecEntities dc = new ProgDecEntities())
                 {
                     tblDegreeType entity = dc.tblDegreeTypes.FirstOrDefault(s => s.Id == id);
+
                     if (entity != null)
                     {
                         return new DegreeType
@@ -140,6 +141,7 @@ namespace BJM.ProgDec.BL
                         throw new Exception();
                     }
                 }
+
             }
             catch (Exception)
             {

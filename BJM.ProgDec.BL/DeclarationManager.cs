@@ -112,6 +112,7 @@ namespace BJM.ProgDec.BL
                             StudentId = entity.StudentId,
                             ProgramId = entity.ProgramId,
                             ChangeDate = entity.ChangeDate,
+
                         };
                     }
                     else
@@ -119,9 +120,11 @@ namespace BJM.ProgDec.BL
                         throw new Exception();
                     }
                 }
+
             }
             catch (Exception)
             {
+
                 throw;
             }
         }

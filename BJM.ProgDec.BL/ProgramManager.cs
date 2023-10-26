@@ -122,15 +122,27 @@ namespace BJM.ProgDec.BL
             {
                 using (ProgDecEntities dc = new ProgDecEntities())
                 {
-                    tblProgram entity = dc.tblPrograms.FirstOrDefault(s => s.Id == id);
+                    var entity = (from s in dc.tblPrograms
+                                  join dt in dc.tblDegreeTypes on s.DegreeTypeId equals dt.Id
+                                  where s.Id == id
+                                  select new
+                                  {
+                                      s.Id,
+                                      s.Description,
+                                      s.DegreeTypeId,
+                                      DegreeTypeName = dt.Description
+                                  })
+                                .FirstOrDefault();
+
                     if (entity != null)
                     {
                         return new Program
                         {
                             Id = entity.Id,
                             Description = entity.Description,
-                            DegreeTypeId = entity.DegreeTypeId
-                            
+                            DegreeTypeId = entity.DegreeTypeId,
+                            DegreeTypeName = entity.DegreeTypeName
+
                         };
                     }
                     else
@@ -138,6 +150,7 @@ namespace BJM.ProgDec.BL
                         throw new Exception();
                     }
                 }
+
             }
             catch (Exception)
             {
@@ -172,6 +185,7 @@ namespace BJM.ProgDec.BL
                          DegreeTypeName = program.DegreeTypeName
                      }));
                 }
+
                 return list;
             }
             catch (Exception)
