@@ -3,3 +3,6 @@ Microsoft.EntityFrameworkCore.Tools
 Microsoft.VisualStudio.Web.CodeGeneration.Design
 
 Scaffold-DbContext "Server=(localdb)\MSSQLLocalDB;Database=BJM.ProgDec.DB;Integrated Security=True" Microsoft.EntityFrameworkCore.SqlServer -Context ProgDecEntities -UseDatabaseNames -force
+
+
+"DVDCentralConnection": "Data Source=server-21296-300079207.database.windows.net;Initial Catalog=progdecdb;User ID=300079207db;Password=Test123!;Connect Timeout=30;Encrypt=True;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False",
