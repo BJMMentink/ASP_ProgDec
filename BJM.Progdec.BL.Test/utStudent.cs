@@ -21,7 +21,6 @@ namespace BJM.Progdec.BL.Test
         [TestMethod]
         public void InsertTest2()
         {
-            int id = 0;
             Student student = new Student
             {
                 FirstName = "test",

@@ -102,7 +102,24 @@ namespace BJM.ProgDec.BL
             {
                 using (ProgDecEntities dc = new ProgDecEntities())
                 {
-                    tblDeclaration entity = dc.tblDeclarations.FirstOrDefault(s => s.Id == id);
+                    var entity = (from d in dc.tblDeclarations
+                                    join s in dc.tblStudents on
+                                    d.StudentId equals s.Id
+                                    join p in dc.tblPrograms on
+                                    d.ProgramId equals p.Id
+                                    join dt in dc.tblDegreeTypes on
+                                    p.DegreeTypeId equals dt.Id
+                                    where d.Id == id
+                                    select new
+                                    {
+                                        d.Id,
+                                        StudentName = s.FirstName + " " + s.LastName,
+                                        ProgramName = p.Description,
+                                        DegreeTypeName = dt.Description,
+                                        d.StudentId,
+                                        d.ProgramId,
+                                        d.ChangeDate,
+                                    }).FirstOrDefault();
 
                     if (entity != null)
                     {
@@ -112,6 +129,9 @@ namespace BJM.ProgDec.BL
                             StudentId = entity.StudentId,
                             ProgramId = entity.ProgramId,
                             ChangeDate = entity.ChangeDate,
+                            StudentName = entity.StudentName,
+                            ProgramName = entity.ProgramName,
+                            DegreeTypeName = entity.DegreeTypeName,
 
                         };
                     }
@@ -154,6 +174,7 @@ namespace BJM.ProgDec.BL
                          d.ProgramId,
                          d.ChangeDate,
                      })
+                     .Distinct() // IMPORTANT FOR DVDCENTRAL
                      .ToList()
                      .ForEach(declaration => list.Add(new Declaration
                      {

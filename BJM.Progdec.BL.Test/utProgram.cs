@@ -14,7 +14,6 @@ namespace BJM.Progdec.BL.Test
         [TestMethod]
         public void InsertTest()
         {
-            int id = 0;
             Program program = new Program
             {
                 DegreeTypeId = 1,

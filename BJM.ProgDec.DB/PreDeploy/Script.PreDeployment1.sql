@@ -13,3 +13,4 @@ drop table if exists tblDeclaration
 drop table if exists tblDegreeType
 drop table if exists tblProgram
 drop table if exists tblStudent
+drop table if exists tblUser

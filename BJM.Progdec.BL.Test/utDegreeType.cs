@@ -23,7 +23,6 @@ namespace BJM.Progdec.BL.Test
         [TestMethod]
         public void InsertTest()
         {
-            int id = 0;
             DegreeType degreeType = new DegreeType
             {
                 Description = "test",

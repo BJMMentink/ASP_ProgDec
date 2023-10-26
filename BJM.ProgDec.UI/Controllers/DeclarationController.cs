@@ -6,6 +6,7 @@ namespace BJM.ProgDec.UI.Controllers
     {
         public IActionResult Index()
         {
+            ViewBag.Title = "List of All Programs";
             return View(DeclarationManager.Load());
         }
         //filter Declaration by Program ID
@@ -15,10 +16,13 @@ namespace BJM.ProgDec.UI.Controllers
         }
         public IActionResult Details(int id)
         {
-            return View(DeclarationManager.LoadById(id));
+            var item = DeclarationManager.LoadById(id);
+            ViewBag.Title = "Details";
+            return View(item);
         }
         public IActionResult Create()
         {
+            ViewBag.title = "Create";
             return View();
         }
         [HttpPost]
@@ -37,7 +41,9 @@ namespace BJM.ProgDec.UI.Controllers
         }
         public IActionResult Edit(int id) 
         {
-            return View(DeclarationManager.LoadById(id));
+            var item = DeclarationManager.LoadById(id);
+            ViewBag.Title = "Edit";
+            return View(item);
         }
         [HttpPost]
         public IActionResult Edit(int id, Declaration declaration, bool rollback = false)
@@ -55,7 +61,9 @@ namespace BJM.ProgDec.UI.Controllers
         }
         public IActionResult Delete(int id)
         {
-            return View(DeclarationManager.LoadById(id));
+            var item = DeclarationManager.LoadById(id);
+            ViewBag.Title = "Delete";
+            return View(item);
         }
         [HttpPost]
         public IActionResult Delete(int id, Declaration declaration, bool rollback = false)

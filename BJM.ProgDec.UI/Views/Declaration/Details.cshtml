@@ -1,21 +1,7 @@
 ﻿@model BJM.ProgDec.BL.Models.Declaration
 
-@{
-    ViewData["Title"] = "Details";
-}
-
-<h1>Details</h1>
-
-<div>
-    <h4>Declaration</h4>
-    <hr />
+<div class="m-2">
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.ChangeDate)
         </dt>
@@ -23,20 +9,20 @@
             @Html.DisplayFor(model => model.ChangeDate)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProgramId)
+            @Html.DisplayNameFor(model => model.ProgramName)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProgramId)
+            @Html.DisplayFor(model => model.ProgramName)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StudentId)
+            @Html.DisplayNameFor(model => model.StudentName)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StudentId)
+            @Html.DisplayFor(model => model.StudentName)
         </dd>
     </dl>
 </div>
-<div>
+<div class ="m-2">
     @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
     <a asp-action="Index">Back to List</a>
 </div>
