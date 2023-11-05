@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BJM.ProgDec.UI.Models;
+using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BJM.ProgDec.UI.Controllers
 {
@@ -13,12 +15,15 @@ namespace BJM.ProgDec.UI.Controllers
         {
             var item = ProgramManager.LoadById(id);
             ViewBag.Title = "Details for " + item.Description;
-            return View(ProgramManager.LoadById(id));
+            return View(item);
         }
         public IActionResult Create()
         {
             ViewBag.Title = "Create a Program";
-            return View();
+            if (Authenticate.IsAuthenticated(HttpContext)) 
+                return View();
+            else 
+                return RedirectToAction("Login", "User", new {returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request)});
         }
         [HttpPost]
         public IActionResult Create(BL.Models.Program program, bool rollback = false)
