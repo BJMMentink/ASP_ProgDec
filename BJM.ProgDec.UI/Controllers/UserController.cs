@@ -20,6 +20,12 @@ namespace BJM.ProgDec.UI.Controllers
         //        LoadBands();
         //    }
         //}
+        // Iaction result for Seed
+        //private IActionResult Seed() 
+        //{
+        //    UserManager Seed();
+        //    return View();
+        //}
         private void SetUser(User user)
         {
             HttpContext.Session.SetObject("user", user);

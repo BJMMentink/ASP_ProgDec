@@ -9,7 +9,10 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
+
 :r .\DefaultData\Declarations.sql
 :r .\DefaultData\DegreeTypes.sql
 :r .\DefaultData\Programs.sql
 :r .\DefaultData\Students.sql
+:r .\DefaultData\Advisors.sql
+:r .\DefaultData\StudentAdvisors.sql

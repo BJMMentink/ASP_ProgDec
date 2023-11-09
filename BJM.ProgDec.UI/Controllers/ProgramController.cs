@@ -1,4 +1,5 @@
 ﻿using BJM.ProgDec.UI.Models;
+using BJM.ProgDec.UI.ViewModels;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,23 +20,25 @@ namespace BJM.ProgDec.UI.Controllers
         }
         public IActionResult Create()
         {
+            ProgramVM programVM = new ProgramVM();
+            programVM.Program = new BL.Models.Program();
+            programVM.DegreeTypes = DegreeTypeManager.Load();
             ViewBag.Title = "Create a Program";
             if (Authenticate.IsAuthenticated(HttpContext)) 
-                return View();
+                return View(programVM);
             else 
                 return RedirectToAction("Login", "User", new {returnUrl = UriHelper.GetDisplayUrl(HttpContext.Request)});
         }
         [HttpPost]
-        public IActionResult Create(BL.Models.Program program, bool rollback = false)
+        public IActionResult Create(ProgramVM programVM)
         {
             try
             {
-                int result = ProgramManager.Insert(program, rollback);
+                int result = ProgramManager.Insert(programVM.Program);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
