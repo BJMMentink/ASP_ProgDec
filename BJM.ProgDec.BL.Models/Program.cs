@@ -14,6 +14,7 @@ namespace BJM.ProgDec.BL.Models
         public int DegreeTypeId { get; set; }
         [DisplayName("Degree Name")]
         public string DegreeTypeName { get; set;}
-
+        [DisplayName("Image")]
+        public string ImagePath { get; set; } = string.Empty;
     }
 }

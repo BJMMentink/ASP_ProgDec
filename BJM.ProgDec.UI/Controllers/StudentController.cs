@@ -6,14 +6,18 @@ namespace BJM.ProgDec.UI.Controllers
     {
         public IActionResult Index()
         {
+            ViewBag.Title = "List of Advisors";
             return View(StudentManager.Load());
         }
         public IActionResult Details(int id)
         {
+            var item = StudentManager.LoadById(id);
+            ViewBag.Title = "Details for " + item.FullName;
             return View(StudentManager.LoadById(id));
         }
         public IActionResult Create()
         {
+            ViewBag.Title = "Create a Student";
             return View();
         }
         [HttpPost]
@@ -24,14 +28,17 @@ namespace BJM.ProgDec.UI.Controllers
                 int result = StudentManager.Insert(student, rollback);
                 return RedirectToAction(nameof(Index));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                ViewBag.Title = "Create a Student";
+                ViewBag.Error = ex.Message;
                 throw;
             }
         }
         public IActionResult Edit(int id) 
         {
+            var item = StudentManager.LoadById(id);
+            ViewBag.Title = "Edit " + item.FullName;
             return View(StudentManager.LoadById(id));
         }
         [HttpPost]

@@ -33,6 +33,7 @@ namespace BJM.ProgDec.PL.Test
             entity.DegreeTypeId = 2;
             entity.Description = "Basket Weaving";
             entity.Id = -99;
+            entity.ImagePath = "imagepath";
 
             dc.tblPrograms.Add(entity);
 

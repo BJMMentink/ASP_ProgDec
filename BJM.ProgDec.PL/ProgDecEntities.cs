@@ -15,6 +15,8 @@ public partial class ProgDecEntities : DbContext
     {
     }
 
+    public virtual DbSet<tblAdvisor> tblAdvisors { get; set; }
+
     public virtual DbSet<tblDeclaration> tblDeclarations { get; set; }
 
     public virtual DbSet<tblDegreeType> tblDegreeTypes { get; set; }
@@ -23,18 +25,31 @@ public partial class ProgDecEntities : DbContext
 
     public virtual DbSet<tblStudent> tblStudents { get; set; }
 
+    public virtual DbSet<tblStudentAdvisor> tblStudentAdvisors { get; set; }
+
     public virtual DbSet<tblUser> tblUsers { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=BJM.ProgDec.DB;Integrated Security=True");
-        //optionsBuilder.UseSqlServer("Data Source=server-21296-300079207.database.windows.net;Initial Catalog=progdecdb;User ID=300079207db;Password=Test123!;Connect Timeout=30;Encrypt=True;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
-    }
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=BJM.ProgDec.DB;Integrated Security=True");
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<tblAdvisor>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__tblAdvis__3214EC07846B9EA6");
+
+            entity.ToTable("tblAdvisor");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Name)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+        });
+
         modelBuilder.Entity<tblDeclaration>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__tblDecla__3214EC0738463E18");
+            entity.HasKey(e => e.Id).HasName("PK__tblDecla__3214EC072C18935B");
 
             entity.ToTable("tblDeclaration");
 
@@ -44,7 +59,7 @@ public partial class ProgDecEntities : DbContext
 
         modelBuilder.Entity<tblDegreeType>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__tblDegre__3214EC074F609C67");
+            entity.HasKey(e => e.Id).HasName("PK__tblDegre__3214EC07DDC7D95A");
 
             entity.ToTable("tblDegreeType");
 
@@ -56,7 +71,7 @@ public partial class ProgDecEntities : DbContext
 
         modelBuilder.Entity<tblProgram>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__tblProgr__3214EC070CB07A20");
+            entity.HasKey(e => e.Id).HasName("PK__tblProgr__3214EC07F63CA71D");
 
             entity.ToTable("tblProgram");
 
@@ -64,11 +79,12 @@ public partial class ProgDecEntities : DbContext
             entity.Property(e => e.Description)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+            entity.Property(e => e.ImagePath).IsUnicode(false);
         });
 
         modelBuilder.Entity<tblStudent>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__tblStude__3214EC0737F2CA2A");
+            entity.HasKey(e => e.Id).HasName("PK__tblStude__3214EC07EE61AA5C");
 
             entity.ToTable("tblStudent");
 
@@ -84,9 +100,18 @@ public partial class ProgDecEntities : DbContext
                 .IsUnicode(false);
         });
 
+        modelBuilder.Entity<tblStudentAdvisor>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__tblStude__3214EC071BDAA2FA");
+
+            entity.ToTable("tblStudentAdvisor");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+        });
+
         modelBuilder.Entity<tblUser>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__tblUser__3214EC07C70F8464");
+            entity.HasKey(e => e.Id).HasName("PK__tblUser__3214EC07E07BDE65");
 
             entity.ToTable("tblUser");
 

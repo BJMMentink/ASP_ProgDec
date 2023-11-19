@@ -17,6 +17,7 @@ namespace BJM.Progdec.BL.Test
             Program program = new Program
             {
                 DegreeTypeId = 1,
+                ImagePath = "imagepath"
             };
             int result = ProgramManager.Insert(program, true);
             Assert.AreEqual(1, result);

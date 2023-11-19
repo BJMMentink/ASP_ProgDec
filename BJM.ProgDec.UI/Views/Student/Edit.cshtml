@@ -1,22 +1,9 @@
 ﻿@model BJM.ProgDec.BL.Models.Student
 
-@{
-    ViewData["Title"] = "Edit";
-}
-
-<h1>Edit</h1>
-
-<h4>Student</h4>
-<hr />
-<div class="row">
+<div class="row m-2">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
                 <input asp-for="FirstName" class="form-control" />
@@ -39,10 +26,12 @@
     </div>
 </div>
 
-<div>
+<div class="m-2">
     <a asp-action="Index">Back to List</a>
 </div>
-
+<div>
+    <partial name="_AdvisorPartial" model="Model.Advisors"/>
+</div>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

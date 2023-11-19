@@ -10,7 +10,7 @@ namespace BJM.Progdec.BL.Test
         public void LoadTest()
         {
             List<DegreeType> items = DegreeTypeManager.Load();
-            Assert.AreEqual(4, items.Count);
+            Assert.AreEqual(3, items.Count);
             Assert.AreEqual(9, items[2].Programs.Count());
         }
         [TestMethod]

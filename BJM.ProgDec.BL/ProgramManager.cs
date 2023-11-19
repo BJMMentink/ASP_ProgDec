@@ -8,14 +8,15 @@ namespace BJM.ProgDec.BL
     public static class ProgramManager
     {
         // by refrence is used by calling "ref" or "out"
-        public static int Insert(string description, int degreeTypeId, ref int id, bool roleback = false)
+        public static int Insert(string description, int degreeTypeId, ref int id, string imagePath, bool roleback = false)
         {
             try
             {
                 Program program = new Program
                 {
                     Description = description,
-                    DegreeTypeId = degreeTypeId
+                    DegreeTypeId = degreeTypeId,
+                    ImagePath = imagePath
                 };
                 int results = Insert(program, roleback);
                 id = program.Id;
@@ -42,6 +43,7 @@ namespace BJM.ProgDec.BL
                     entity.Id = dc.tblPrograms.Any() ? dc.tblPrograms.Max(s => s.Id) + 1 : 1;
                     entity.Description = program.Description;
                     entity.DegreeTypeId = program.DegreeTypeId;
+                    entity.ImagePath = program.ImagePath;
 
                     // IMPORTANT - Back Fill ID
                     program.Id = entity.Id;
@@ -73,6 +75,7 @@ namespace BJM.ProgDec.BL
                     {
                         entity.Description = program.Description;
                         entity.DegreeTypeId = program.DegreeTypeId;
+                        entity.ImagePath = program.ImagePath;
                         results = dc.SaveChanges();
                     }
                     if (rollback) transaction.Rollback();
@@ -130,7 +133,8 @@ namespace BJM.ProgDec.BL
                                       s.Id,
                                       s.Description,
                                       s.DegreeTypeId,
-                                      DegreeTypeName = dt.Description
+                                      DegreeTypeName = dt.Description,
+                                      s.ImagePath
                                   })
                                 .FirstOrDefault();
 
@@ -141,8 +145,8 @@ namespace BJM.ProgDec.BL
                             Id = entity.Id,
                             Description = entity.Description,
                             DegreeTypeId = entity.DegreeTypeId,
-                            DegreeTypeName = entity.DegreeTypeName
-
+                            DegreeTypeName = entity.DegreeTypeName,
+                            ImagePath = entity.ImagePath
                         };
                     }
                     else
@@ -174,7 +178,8 @@ namespace BJM.ProgDec.BL
                          s.Id,
                          s.Description,
                          s.DegreeTypeId,
-                         DegreeTypeName = dt.Description
+                         DegreeTypeName = dt.Description,
+                         s.ImagePath
                      })
                      .ToList()
                      .ForEach(program => list.Add(new Program
@@ -182,7 +187,8 @@ namespace BJM.ProgDec.BL
                          Id = program.Id,
                          Description = program.Description,
                          DegreeTypeId = program.DegreeTypeId,
-                         DegreeTypeName = program.DegreeTypeName
+                         DegreeTypeName = program.DegreeTypeName,
+                         ImagePath = program.ImagePath
                      }));
                 }
 

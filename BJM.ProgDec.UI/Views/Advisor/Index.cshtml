@@ -1,4 +1,8 @@
-﻿@model IEnumerable<BJM.ProgDec.BL.Models.Program>
+﻿@model IEnumerable<BJM.ProgDec.BL.Models.Advisor>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
 <p class="m-2">
     <a asp-action="Create">Create New</a>
@@ -6,12 +10,11 @@
 <table class="table">
     <thead>
         <tr>
-            <th></th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DegreeTypeName)
+                @Html.DisplayNameFor(model => model.Name)
             </th>
             <th></th>
         </tr>
@@ -20,13 +23,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                    <img id="programimage" alt="@item.Description" src="~/images/@item.ImagePath" onclick="on('/images/@item.ImagePath')" class="imagepropsmall" />
+                @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DegreeTypeName)
+                @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
