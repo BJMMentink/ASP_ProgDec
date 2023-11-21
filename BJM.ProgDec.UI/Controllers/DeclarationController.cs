@@ -12,6 +12,8 @@ namespace BJM.ProgDec.UI.Controllers
         //filter Declaration by Program ID
         public IActionResult Browse(int id)
         {
+            var results = ProgramManager.LoadById(id);
+            ViewBag.Title = "List of " + results.Description + " Declarations";
             return View(nameof(Index), DeclarationManager.Load(id));
         }
         public IActionResult Details(int id)
