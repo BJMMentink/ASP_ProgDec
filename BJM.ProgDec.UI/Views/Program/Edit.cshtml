@@ -5,7 +5,7 @@
         <form asp-action="Edit" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <label hidden asp-for="Program.Id" class="control-label"></label>
+            <input hidden asp-for="Program.Id" class="form-control" />
                 
             <div class="form-group">
                 <label asp-for="Program.Description" class="control-label"></label>
@@ -13,12 +13,14 @@
                 <span asp-validation-for="Program.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Program.ImagePath" class="control-label"></label>
-                <img class="imagepropmed" alt="@Model.Program.Description"
-                     id="programimage" onclick="on('/images/@Model.Program.ImagePath')"
-                     src="~/images/@Model.Program.ImagePath" />
+                <label asp-for="Program.ImagePath" class="control-label"></label><br/>
+                <img class="imagepropmedium m-2"
+                    alt="@Model.Program.Description"
+                    id="programimage"
+                    onclick="on('/images/@Model.Program.ImagePath')"
+                    src="~/images/@Model.Program.ImagePath"/>
                 <input asp-for="Program.ImagePath" class="form-control" />
-                <input type="file" name="File" id="File" accept="image/" onchange="loadFile(event)"/>
+                <input type="file" name="File" id="File" accept="image/" onchange="loadFile(event)" />
                 <span asp-validation-for="Program.ImagePath" class="text-danger"></span>
             </div>
             <div class="form-group">

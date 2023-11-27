@@ -60,7 +60,7 @@ namespace BJM.ProgDec.BL
                 throw;
             }
         }
-        public static int Update(Student student, bool rollback = false) 
+        public static int Update(Student student, bool rollback = false)
         {
             try
             {
@@ -68,9 +68,11 @@ namespace BJM.ProgDec.BL
                 using (ProgDecEntities dc = new ProgDecEntities())
                 {
                     IDbContextTransaction transaction = null;
-                    if(rollback) transaction = dc.Database.BeginTransaction();
-                    // get the row we are trying to update
+                    if (rollback) transaction = dc.Database.BeginTransaction();
+
+                    // Get the row that we are trying to update
                     tblStudent entity = dc.tblStudents.FirstOrDefault(s => s.Id == student.Id);
+
                     if (entity != null)
                     {
                         entity.FirstName = student.FirstName;
@@ -78,9 +80,12 @@ namespace BJM.ProgDec.BL
                         entity.StudentId = student.StudentId;
                         results = dc.SaveChanges();
                     }
+                    else
+                    {
+                        throw new Exception("Row does not exist");
+                    }
+
                     if (rollback) transaction.Rollback();
-                    else throw new Exception("Row does not exist");
-                    
                 }
                 return results;
             }
@@ -89,7 +94,6 @@ namespace BJM.ProgDec.BL
 
                 throw;
             }
-         
         }
         public static int Delete(int id, bool rollback = false)
         {

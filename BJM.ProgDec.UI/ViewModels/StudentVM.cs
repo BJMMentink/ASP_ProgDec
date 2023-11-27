@@ -4,16 +4,18 @@
     {
         public Student Student { get; set; }
         public List<Advisor> Advisors { get; set; } = new List<Advisor>();
-        public IEnumerable<int> AdvisorId { get; set; } // new advisors for the students
-        public StudentVM() 
+        public IEnumerable<int> AdvisorIds { get; set; } 
+
+        public StudentVM()
         {
             Advisors = AdvisorManager.Load();
         }
+
         public StudentVM(int id)
         {
             Advisors = AdvisorManager.Load();
             Student = StudentManager.LoadById(id);
-            AdvisorId = Student.Advisors.Select(a => a.Id);
+            AdvisorIds = Student.Advisors.Select(a => a.Id);
         }
     }
 }

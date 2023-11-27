@@ -20,7 +20,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                    <img id="programimage" alt="@item.Description" src="~/images/@item.ImagePath" onclick="on('/images/@item.ImagePath')" class="imagepropsmall" />
+                 <img id="programimage" alt="@item.Description" src="~/images/@item.ImagePath" onclick="on('/images/@item.ImagePath')" class="imagepropsmall" />
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)

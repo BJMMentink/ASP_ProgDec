@@ -37,11 +37,12 @@ namespace BJM.ProgDec.UI.Controllers
                 throw;
             }
         }
-        public IActionResult Edit(int id) 
+        public IActionResult Edit(int id)
         {
+
             StudentVM studentVM = new StudentVM(id);
             ViewBag.Title = "Edit " + studentVM.Student.FullName;
-            HttpContext.Session.SetObject("advisorids", studentVM.AdvisorId);
+            HttpContext.Session.SetObject("advisorids", studentVM.AdvisorIds);
             return View(studentVM);
         }
         [HttpPost]
@@ -50,12 +51,12 @@ namespace BJM.ProgDec.UI.Controllers
             try
             {
                 IEnumerable<int> newAdvisorIds = new List<int>();
-                if (studentVM.AdvisorId != null)
-                {
-                    newAdvisorIds = studentVM.AdvisorId;
-                }
+                if (studentVM.AdvisorIds != null)
+                    newAdvisorIds = studentVM.AdvisorIds;
+
                 IEnumerable<int> oldAdvisorIds = new List<int>();
                 oldAdvisorIds = GetObject();
+
                 IEnumerable<int> deletes = oldAdvisorIds.Except(newAdvisorIds);
                 IEnumerable<int> adds = newAdvisorIds.Except(oldAdvisorIds);
 

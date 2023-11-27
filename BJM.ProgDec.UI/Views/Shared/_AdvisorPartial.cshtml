@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<BJM.ProgDec.BL.Models.Advisor>
 
-<table id="students" class="table">
+<table id="myData" class="table">
     <thead>
         <tr>
             <th>
@@ -17,13 +17,13 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                    @* @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id }) *@
 
-                    @*<a asp-controller="Advisor" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a asp-controller="Advisor" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                     <a asp-controller="Advisor" asp-action="Details" asp-route-id="@item.Id">Details</a>
-                    <a asp-controller="Advisor" asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                    <a asp-controller="Advisor" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
         }
@@ -33,7 +33,7 @@
 <script type="text/javascript" class="init">
     $.noConflict();
     jQuery(document).ready(function ($) {
-        $('#students').DataTable({
+        $('#myData').DataTable({
             "lengthMenu": [[5, 10, 25, 30, -1], [5, 10, 25, 30, "All"]]
         });
     });
