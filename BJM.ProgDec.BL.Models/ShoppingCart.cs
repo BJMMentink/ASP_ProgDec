@@ -18,11 +18,11 @@ namespace BJM.ProgDec.BL.Models
         {
             get { return Items.Count; }
         }
-        [DisplayFormat(DataFormatString = "(0:C)")] // formats to currency
+        [DisplayFormat(DataFormatString = "{0:C}")] // formats to currency
         public double SubTotal { get { return Items.Count * ITEM_COST; } }
-        [DisplayFormat(DataFormatString = "(0:C)")] // formats to currency
+        [DisplayFormat(DataFormatString = "{0:C}")] // formats to currency
         public double Tax { get { return SubTotal * TAX_RATE; } }
-        [DisplayFormat(DataFormatString = "(0:C)")] // formats to currency
+        [DisplayFormat(DataFormatString = "{0:C}")] // formats to currency
         public double Total { get { return SubTotal * Tax; } }
     }
 }

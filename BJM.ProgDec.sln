@@ -22,7 +22,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BJM.Progdec.BL.Test", "BJM.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BJM.Bands.UI", "BJM.Bands.UI\BJM.Bands.UI.csproj", "{1A0AAA4A-7663-4E1D-992A-EF0A82EC1FDF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BJM.ProgDec.UI", "BJM.ProgDec.UI\BJM.ProgDec.UI.csproj", "{A05C67CE-0519-4E87-8E71-F2A088C32C28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BJM.ProgDec.UI", "BJM.ProgDec.UI\BJM.ProgDec.UI.csproj", "{A05C67CE-0519-4E87-8E71-F2A088C32C28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BJM.ProgDec.API", "BJM.ProgDec.API\BJM.ProgDec.API.csproj", "{A16F5BE4-46D5-4D12-B558-4A2DF43BE491}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,6 +66,10 @@ Global
 		{A05C67CE-0519-4E87-8E71-F2A088C32C28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A05C67CE-0519-4E87-8E71-F2A088C32C28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A05C67CE-0519-4E87-8E71-F2A088C32C28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A16F5BE4-46D5-4D12-B558-4A2DF43BE491}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A16F5BE4-46D5-4D12-B558-4A2DF43BE491}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A16F5BE4-46D5-4D12-B558-4A2DF43BE491}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A16F5BE4-46D5-4D12-B558-4A2DF43BE491}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

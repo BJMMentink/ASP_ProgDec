@@ -1,29 +1,61 @@
-﻿@model BJM.ProgDec.BL.Models.Program
-<div class="m-2">
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DegreeTypeName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DegreeTypeName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ImagePath)
-        </dt>
-        <dd class="col-sm-10">
-            <img class="imagepropmedium" alt="@Model.Description" id="programimage" onclick="on('/images/@Model.ImagePath')" src="~/images/@Model.ImagePath">
-            <input asp-for="ImagePath" class="form-control" />
-            <span asp-validation-for="ImagePath" class="text-danger"></span>
-        </dd>
-    </dl>
+﻿@model BJM.ProgDec.UI.ViewModels.ProgramVM
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row m-2">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input hidden asp-for="Program.Id" class="form-control" />
+
+            <div class="form-group">
+                <label asp-for="Program.DegreeTypeName" class="control-label"></label>
+                <select asp-for="Program.DegreeTypeId" class="form-control"
+                        asp-items="@(new SelectList(Model.DegreeTypes, "Id", "Description"))"></select>
+                <span asp-validation-for="Program.DegreeTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Program.Description" class="control-label"></label>
+                <input asp-for="Program.Description" class="form-control" />
+                <span asp-validation-for="Program.Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Program.ImagePath" class="control-label"></label><br />
+                <img class="imagepropmedium m-2"
+                     alt="@Model.Program.Description"
+                     id="programimage"
+                     onclick="on('/images/@Model.Program.ImagePath')"
+                     src="~/images/@Model.Program.ImagePath" />
+                <input asp-for="Program.ImagePath" class="form-control" />
+                <input type="file" name="File" id="File" accept="image/" onchange="loadFile(event)" />
+                <span asp-validation-for="Program.ImagePath" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary mt-2" />
+            </div>
+        </form>
+    </div>
 </div>
-<div class="m-2">
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+
+<div class="ms-4">
     <a asp-action="Index">Back to List</a>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<script>
+    var loadFile = function (event) {
+        var output = document.getElementById('programimage');
+        output.src = URL.createObjectURL(event.target.files[0]);
+    }
+</script>
